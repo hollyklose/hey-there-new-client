@@ -62,7 +62,11 @@ class CreateContact extends Component {
             placeholder="How high priority is this contact?"
           />
         </div>
-        <Mutation mutation={CONTACT_MUTATION} variables={{ name, howMet, frequency, priority, lastContacted, userId }}>
+        <Mutation
+          mutation={CONTACT_MUTATION}
+          variables={{ name, howMet, frequency, priority, lastContacted, userId }}
+          onCompleted={() => this.props.history.push('/')}
+        >
           {CreateContact => <button onClick={CreateContact}>Submit</button>}
         </Mutation>
       </div>

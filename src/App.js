@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import './App.scss'
 import { Route } from 'react-router-dom'
 import ContactList from './components/ContactList'
@@ -57,12 +57,12 @@ class App extends Component {
           <AuthenticatedRoute user={user} path='/change-password' render={() => (
             <ChangePassword alert={this.alert} user={user} />
           )} />
-          {user
-            ? <Fragment>
-              <ContactList user={user} />
-              <CreateContact user={user} />
-            </Fragment>
-            : <h3>Please sign in to get started.</h3>}
+          <AuthenticatedRoute user={user} exact path='/create-contact' render={() => (
+            <CreateContact alert={this.alert} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} exact path='/' render={() => (
+            <ContactList alert={this.alert} user={user} />
+          )} />
         </main>
       </React.Fragment>
     )

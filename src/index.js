@@ -23,11 +23,11 @@ const client = new ApolloClient({
 
 // 4
 ReactDOM.render(
-  <ApolloProvider client={client}>
-    <HashRouter>
+  <HashRouter>
+    <ApolloProvider client={client}>
       <App />
-    </HashRouter>
-  </ApolloProvider>,
+    </ApolloProvider>
+  </HashRouter>,
   document.getElementById('root')
 )
 
