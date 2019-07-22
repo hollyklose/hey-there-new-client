@@ -4,8 +4,8 @@ import { Query } from 'react-apollo'
 import gql from 'graphql-tag'
 
 export const CONTACTLIST_QUERY = gql`
-{
-  contacts {
+query contactList($userId: Int!) {
+  contacts(userId: $userId) {
     id
     name
     howMet
@@ -22,8 +22,9 @@ export const CONTACTLIST_QUERY = gql`
 
 class ContactList extends Component {
   render () {
+    const userId = this.props.user.id
     return (
-      <Query query={CONTACTLIST_QUERY}>
+      <Query query={CONTACTLIST_QUERY} variables={ { userId } }>
         {({ loading, error, data }) => {
           if (loading) return <div>Fetching</div>
           if (error) return <div>Error</div>
