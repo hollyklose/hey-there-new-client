@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './App.scss'
-import { Route } from 'react-router-dom'
+import { Route, withRouter } from 'react-router-dom'
 import ContactList from './components/ContactList'
 import CreateContact from './components/CreateContact'
 
@@ -58,7 +58,7 @@ class App extends Component {
             <ChangePassword alert={this.alert} user={user} />
           )} />
           <AuthenticatedRoute user={user} exact path='/create-contact' render={() => (
-            <CreateContact alert={this.alert} user={user} />
+            <CreateContact alert={this.alert} user={user} history= {this.props.history} />
           )} />
           <AuthenticatedRoute user={user} exact path='/' render={() => (
             <ContactList alert={this.alert} user={user} />
@@ -69,4 +69,4 @@ class App extends Component {
   }
 }
 
-export default App
+export default withRouter(App)

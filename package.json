@@ -5,6 +5,7 @@
   "private": true,
   "dependencies": {
     "apollo-boost": "^0.4.3",
+    "apollo-link-context": "^1.0.18",
     "autoprefixer": "7.1.6",
     "axios": "^0.18.0",
     "bootstrap": "^4.3.1",

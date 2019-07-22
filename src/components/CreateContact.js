@@ -26,17 +26,20 @@ class CreateContact extends Component {
     priority: 0,
     lastContacted: new Date()
   }
-
   render () {
     const { name, howMet, frequency, priority, lastContacted } = this.state
     const userId = this.props.user.id
+    const { history } = this.props
     return (
       <div>
         <div className="flex flex-column mt3">
           <input
             className="mb2"
             value={name}
-            onChange={event => this.setState({ name: event.target.value })}
+            onChange={event => {
+              this.setState({ name: event.target.value })
+              console.log('hello', event.target.value)
+            }}
             type="text"
             placeholder="Contact name"
           />
@@ -50,14 +53,20 @@ class CreateContact extends Component {
           <input
             className="mb2"
             value={frequency}
-            onChange={event => this.setState({ frequency: event.target.value })}
+            onChange={event => {
+              this.setState({ frequency: parseInt(event.target.value) })
+              console.log('bye', event.target.value)
+            }}
             type="number"
             placeholder="How often do you wish to contact this person?"
           />
           <input
             className="mb2"
             value={priority}
-            onChange={event => this.setState({ priority: event.target.value })}
+            onChange={event => {
+              this.setState({ priority: parseInt(event.target.value) })
+              console.log('other', event.target.value)
+            }}
             type="number"
             placeholder="How high priority is this contact?"
           />
@@ -65,7 +74,7 @@ class CreateContact extends Component {
         <Mutation
           mutation={CONTACT_MUTATION}
           variables={{ name, howMet, frequency, priority, lastContacted, userId }}
-          onCompleted={() => this.props.history.push('/')}
+          onCompleted={() => history.push('/')}
         >
           {CreateContact => <button onClick={CreateContact}>Submit</button>}
         </Mutation>

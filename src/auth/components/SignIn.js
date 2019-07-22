@@ -24,7 +24,13 @@ class SignIn extends Component {
     const { alert, history, setUser } = this.props
 
     signIn(this.state)
-      .then(res => setUser(res.data.user))
+      .then(
+        res => {
+          setUser(res.data.user)
+          console.log(res.data.user)
+          localStorage.setItem('auth-token', res.data.user.token)
+        }
+      )
       .then(() => alert(messages.signInSuccess, 'success'))
       .then(() => history.push('/'))
       .catch(error => {
@@ -63,5 +69,7 @@ class SignIn extends Component {
     )
   }
 }
+
+export const AUTH_TOKEN = 'auth-token'
 
 export default withRouter(SignIn)
