@@ -3,7 +3,7 @@ import Contact from './Contact'
 import { Query } from 'react-apollo'
 import gql from 'graphql-tag'
 
-const CONTACTLIST_QUERY = gql`
+export const CONTACTLIST_QUERY = gql`
 {
   contacts {
     id
@@ -32,7 +32,10 @@ class ContactList extends Component {
 
           return (
             <div>
-              {contactsToRender.map(contact => <Contact key={contact.id} contact={contact} />)}
+              {contactsToRender.map(contact => <Contact
+                key={contact.id}
+                contact={contact}
+              />)}
             </div>
           )
         }}

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
+import { CONTACTLIST_QUERY } from './ContactList'
 
 const CONTACT_MUTATION = gql`
   mutation CreateContact($name: String!, $howMet: String!, $frequency: Int!, $priority: Int!, $lastContacted: DateTime!, $userId: Int!) {
@@ -10,6 +11,7 @@ const CONTACT_MUTATION = gql`
       frequency
       priority
       lastContacted
+      id
       user {
         id
         email
@@ -38,7 +40,6 @@ class CreateContact extends Component {
             value={name}
             onChange={event => {
               this.setState({ name: event.target.value })
-              console.log('hello', event.target.value)
             }}
             type="text"
             placeholder="Contact name"
@@ -55,7 +56,6 @@ class CreateContact extends Component {
             value={frequency}
             onChange={event => {
               this.setState({ frequency: parseInt(event.target.value) })
-              console.log('bye', event.target.value)
             }}
             type="number"
             placeholder="How often do you wish to contact this person?"
@@ -65,7 +65,6 @@ class CreateContact extends Component {
             value={priority}
             onChange={event => {
               this.setState({ priority: parseInt(event.target.value) })
-              console.log('other', event.target.value)
             }}
             type="number"
             placeholder="How high priority is this contact?"
@@ -74,6 +73,15 @@ class CreateContact extends Component {
         <Mutation
           mutation={CONTACT_MUTATION}
           variables={{ name, howMet, frequency, priority, lastContacted, userId }}
+          update={(store, { data: { createContact } }) => {
+            const data = store.readQuery({ query: CONTACTLIST_QUERY })
+            data.contacts.unshift(createContact)
+            console.log(data.contacts)
+            store.writeQuery({
+              query: CONTACTLIST_QUERY,
+              data
+            })
+          }}
           onCompleted={() => history.push('/')}
         >
           {CreateContact => <button onClick={CreateContact}>Submit</button>}
