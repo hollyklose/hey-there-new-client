@@ -47,7 +47,7 @@ class ContactList extends Component {
       >
         {({ loading, error, data }) => {
           if (loading) return <div>Fetching</div>
-          if (error) return <div>Error</div>
+          if (error) return <div>Errorcontactlist</div>
           const contactsToRender = data.contacts
           console.log('contacts', contactsToRender)
           return (
@@ -57,7 +57,6 @@ class ContactList extends Component {
                 contact={contact}
                 user={this.props.user}
                 history= {this.props.history}
-                // _updateCacheAfterDelete={this._updateCacheAfterDelete}
               />)}
             </div>
           )

@@ -3,6 +3,7 @@ import './App.scss'
 import { Route, withRouter } from 'react-router-dom'
 import ContactList from './components/ContactList'
 import CreateContact from './components/CreateContact'
+import EditContact from './components/EditContact'
 
 import AuthenticatedRoute from './auth/components/AuthenticatedRoute'
 import Header from './header/Header'
@@ -59,6 +60,9 @@ class App extends Component {
           )} />
           <AuthenticatedRoute user={user} exact path='/create-contact' render={() => (
             <CreateContact alert={this.alert} user={user} history= {this.props.history} />
+          )} />
+          <AuthenticatedRoute user={user} exact path='/edit-contact/:id' render={() => (
+            <EditContact alert={this.alert} user={user} history= {this.props.history} />
           )} />
           <AuthenticatedRoute user={user} exact path='/' render={() => (
             <ContactList alert={this.alert} user={user} history= {this.props.history} />

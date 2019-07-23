@@ -1,14 +1,15 @@
 import React, { Component } from 'react'
 import { Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
-import { Redirect } from 'react-router-dom'
+import { Link, Redirect, withRouter } from 'react-router-dom'
+import Button from 'react-bootstrap/Button'
 // import { CONTACTLIST_QUERY } from './ContactList'
 
 const DELETE_CONTACT_MUTATION = gql`
   mutation DeleteContact($id: Int!, $userId: Int!) {
     deleteContact(id: $id, userId: $userId) {
-      id
       userId
+      id
     }
   }
 `
@@ -41,6 +42,9 @@ class Contact extends Component {
           <p>{priority}</p>
           <p>{lastContacted}</p>
           <p>{this.props.contact.user.email}</p>
+          <Link to={`/edit-contact/${id}`}>
+            <Button>Edit Contact</Button>
+          </Link>
           <Mutation
             mutation={DELETE_CONTACT_MUTATION}
             variables={{ id, userId }}
@@ -60,4 +64,4 @@ class Contact extends Component {
   }
 }
 
-export default Contact
+export default withRouter(Contact)
