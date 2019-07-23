@@ -61,7 +61,7 @@ class App extends Component {
             <CreateContact alert={this.alert} user={user} history= {this.props.history} />
           )} />
           <AuthenticatedRoute user={user} exact path='/' render={() => (
-            <ContactList alert={this.alert} user={user} />
+            <ContactList alert={this.alert} user={user} history= {this.props.history} />
           )} />
         </main>
       </React.Fragment>
