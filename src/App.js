@@ -64,8 +64,11 @@ class App extends Component {
           <AuthenticatedRoute user={user} exact path='/edit-contact/:id' render={() => (
             <EditContact alert={this.alert} user={user} history= {this.props.history} />
           )} />
-          <AuthenticatedRoute user={user} exact path='/' render={() => (
+          <AuthenticatedRoute user={user} exact path='/contact-list' render={() => (
             <ContactList alert={this.alert} user={user} history= {this.props.history} />
+          )} />
+          <AuthenticatedRoute user={user} exact path='/' render={() => (
+            <h4>Welcome</h4>
           )} />
         </main>
       </React.Fragment>

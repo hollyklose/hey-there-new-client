@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Contact from './Contact'
 import { Query } from 'react-apollo'
 import gql from 'graphql-tag'
+import calculateUrgency from '../logic/sorting.js'
 
 export const CONTACTLIST_QUERY = gql`
 query contactList($userId: Int!) {
@@ -29,13 +30,9 @@ class ContactList extends Component {
       loaded: false
     }
   }
-  // history.push('/')
-  // _updateCacheAfterDelete = (store) => {
-  //   const data = store.readQuery({ query: CONTACTLIST_QUERY })
-  //   store.writeQuery({ query: CONTACTLIST_QUERY, data })
-  // }
   render () {
     const userId = this.props.user.id
+    console.log('USERID', userId)
     return (
       <Query fetchPolicy="no-cache"
         query={CONTACTLIST_QUERY}
@@ -48,8 +45,13 @@ class ContactList extends Component {
         {({ loading, error, data }) => {
           if (loading) return <div>Fetching</div>
           if (error) return <div>Errorcontactlist</div>
-          const contactsToRender = data.contacts
+          let contactsToRender = data.contacts
+          if (contactsToRender.length === 0) {
+            return <h4>You have no contacts! Why not add one now?</h4>
+          }
           console.log('contacts', contactsToRender)
+          contactsToRender = calculateUrgency(contactsToRender)
+          console.log('sorted', contactsToRender)
           return (
             <div>
               {contactsToRender.map(contact => <Contact

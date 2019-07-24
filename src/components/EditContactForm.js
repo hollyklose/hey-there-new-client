@@ -90,6 +90,8 @@ render () {
           value={frequency}
           onChange={this.handleChange}
           type="number"
+          min="1"
+          max="730"
           placeholder="30"
           required
           name="frequency"
@@ -98,7 +100,9 @@ render () {
           className="mb2"
           value={priority}
           onChange={this.handleChange}
-          type="number"
+          type="range"
+          min="1"
+          max="100"
           placeholder="50"
           required
           name="priority"
@@ -111,14 +115,14 @@ render () {
           (data) => {
             // this.setState({ createdContactId: data.createContact.id })
           // history.push(`/contacts/${data.createContact.id}`)
-            this.props.history.push('/')
+            this.props.history.push('/contact-list')
             this.props.alert(`${this.state.contact.name} has been edited!`, 'success')
           // }
           }}
       >
         {EditContactForm => <button onClick={EditContactForm}>Edit</button>}
       </Mutation>
-      <Link to='/'>
+      <Link to='/contact-list'>
         <button>Cancel</button>
       </Link>
     </div>

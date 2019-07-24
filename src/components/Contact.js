@@ -3,7 +3,6 @@ import { Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
 import { Link, Redirect, withRouter } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
-// import { CONTACTLIST_QUERY } from './ContactList'
 
 const DELETE_CONTACT_MUTATION = gql`
   mutation DeleteContact($id: Int!, $userId: Int!) {
@@ -29,8 +28,9 @@ class Contact extends Component {
     const userId = parseInt(this.props.user.id)
     // const { history } = this.props
     if (this.state.deleted) {
+      console.log('redirecting')
       return <Redirect to={
-        { pathname: '/' }
+        { pathname: '/contact-list' }
       }/>
     }
     return (

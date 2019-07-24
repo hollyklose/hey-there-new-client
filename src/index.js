@@ -42,7 +42,7 @@ const client = new ApolloClient({
   link: authLink.concat(httpLink),
   cache: new InMemoryCache()
 })
-
+console.log('link', client.link)
 // 4
 ReactDOM.render(
   <HashRouter>

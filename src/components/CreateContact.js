@@ -28,8 +28,8 @@ class CreateContact extends Component {
       contact: {
         name: '',
         howMet: '',
-        frequency: 0,
-        priority: 0,
+        frequency: 1,
+        priority: 1,
         lastContacted: new Date()
       },
       createdContactId: 0
@@ -65,14 +65,6 @@ class CreateContact extends Component {
     const { name, howMet, frequency, priority, lastContacted } = this.state.contact
     const userId = this.props.user.id
     const { history } = this.props
-    // if (this.state.createdContactId !== 0) {
-    //   // return <Redirect to={
-    //   //   { pathname: '/',
-    //   //     state: { msg: 'Contact successfully deleted! ' } }
-    //   // } />
-    //   console.log('createdcontaftid', this.state.createdContactId)
-    //   return history.push(`/contacts/${this.state.createdContactId}`)
-    // }
     return (
       <div>
         <div className="flex flex-column mt3">
@@ -99,6 +91,8 @@ class CreateContact extends Component {
             value={frequency}
             onChange={this.handleChange}
             type="number"
+            min="1"
+            max="730"
             placeholder="30"
             required
             name="frequency"
@@ -107,7 +101,9 @@ class CreateContact extends Component {
             className="mb2"
             value={priority}
             onChange={this.handleChange}
-            type="number"
+            type="range"
+            min="1"
+            max="100"
             placeholder="50"
             required
             name="priority"
@@ -140,7 +136,7 @@ class CreateContact extends Component {
             (data) => {
             // this.setState({ createdContactId: data.createContact.id })
               // history.push(`/contacts/${data.createContact.id}`)
-              history.push('/')
+              history.push('/contact-list')
               this.props.alert(`${this.state.contact.name} has been added!`, 'success')
               // }
             }}

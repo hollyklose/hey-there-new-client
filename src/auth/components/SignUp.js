@@ -26,7 +26,11 @@ class SignUp extends Component {
 
     signUp(this.state)
       .then(() => signIn(this.state))
-      .then(res => setUser(res.data.user))
+      .then(res => {
+        setUser(res.data.user)
+        console.log(res.data.user)
+        localStorage.setItem('auth-token', res.data.user.token)
+      })
       .then(() => alert(messages.signUpSuccess, 'success'))
       .then(() => history.push('/'))
       .catch(error => {

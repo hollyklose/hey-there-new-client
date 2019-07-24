@@ -150,7 +150,6 @@ class EditContact extends Component {
       //       (data) => {
       //         // this.setState({ createdContactId: data.createContact.id })
       //       // history.push(`/contacts/${data.createContact.id}`)
-      //         history.push('/')
       //         this.props.alert(`${this.state.contact.name} has been edited!`, 'success')
       //       // }
       //       }}
