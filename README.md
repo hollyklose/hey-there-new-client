@@ -59,6 +59,9 @@ DELETE use the same Graphql controller.
 
   [Back End Repository](https://github.com/hollyklose/Hey-There-Rails-API)
 
+  ### Wireframe
+
+  (https://imgur.com/PJz9Ko4)
 
   Entity Relationship Diagram:
 
