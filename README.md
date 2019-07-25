@@ -45,13 +45,13 @@ npm install add apollo-client apollo-cache-inmemory apollo-link-http apollo-link
 
   [Back end] (https://murmuring-dawn-91418.herokuapp.com/)
 
-  [Front end](https://hollyklose.github.io/hey-there-new-client/)
+  [Front end] (https://hollyklose.github.io/hey-there-new-client/)
 
 
 
-  [Front End Repository](https://hollyklose.github.io/hey-there-new-client/)
+  [Front End Repository] (https://hollyklose.github.io/hey-there-new-client/)
 
-  [Back End Repository](https://github.com/hollyklose/Hey-There-Rails-API)
+  [Back End Repository] (https://github.com/hollyklose/Hey-There-Rails-API)
 
   ### Wireframe
 
