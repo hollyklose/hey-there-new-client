@@ -7,9 +7,12 @@ In this app, contacts belong to the user and can be added, deleted, edited, view
 and have their last contacted date updated.
 
 ### List of Technologies Used
--graphql
--Ruby on Rails
--graphiql
+-Graphql
+-React
+-Javascript
+-Apollo
+-Bootstrap
+-HTML/CSS
 
 ### Database and Routes
 The database is comprised of two tables: User, and Contacts which belong to the User.
@@ -99,6 +102,8 @@ On the front end, a lot of the difficulty revolved around making graphql queries
 Another major issue I ran into late in the game was that I was not handling all the server (specifically validation) errors appropriately. I could see that graphql was returning error messages, but I couldn't figure out how to access them. Honestly, I still am unsure how to access the actual server messages, but I did manage to change my mutations/queries on the front end to use a .then and .catch format in the appropriate place (which was a challenge in itself!) and provide feedback to the user when there is an error.
 
 And yet another issue was that I somehow broke the built in signup function! The reason turned out to be the way I was passing the authorization header to the Apollo client. I added a couple of lines from Signin to Signup to set the authorization header earlier in the process and that fixed the issue. This may sound like a quick fix, but it wasn't that quick!
+
+One other backend graphql challenge was that graphql doesn't have a "date" type. I had to figure out how to write my own custom type in order to ensure it was a date.
 
 One fun thing was creating the sorting algorithm for the contact list sort. While I had
 to try several versions to get it to work properly, it was fun to have a plain old
