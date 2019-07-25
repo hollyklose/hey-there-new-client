@@ -1,7 +1,4 @@
- A link to the other repo
- A link to both deployed sites
-
- List unsolved problems which would be fixed in future iterations.
+List unsolved problems which would be fixed in future iterations.
  Document your planning, process and problem-solving strategy
  Link to wireframes and user stories
  An embedded screenshot of the app
@@ -52,15 +49,15 @@ DELETE use the same Graphql controller.
 
   [Front and Back End deployed sites]
 
-  [Back end](https://pure-plains-50623.herokuapp.com/)
+  [Back end] (https://murmuring-dawn-91418.herokuapp.com/)
 
-  [Front end](https://the-local-hosts.github.io/Talk-To-The-Duck-client/)
+  [Front end](https://hollyklose.github.io/Hey-There-React-Client/)
 
 
 
-  [Front End Repository](https://github.com/the-local-hosts/Talk-To-The-Duck-client)
+  [Front End Repository](https://github.com/hollyklose/Hey-There-React-Client)
 
-  [Back End Repository](https://github.com/the-local-hosts/Talk-To-The-Duck-API)
+  [Back End Repository](https://github.com/hollyklose/Hey-There-Rails-API)
 
 
   Entity Relationship Diagram:
