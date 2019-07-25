@@ -51,7 +51,7 @@ DELETE use the same Graphql controller.
 
   [Back end] (https://murmuring-dawn-91418.herokuapp.com/)
 
-  [Front end](https://hollyklose.github.io/Hey-There-React-Client/)
+  [Front end](https://hollyklose.github.io/hey-there-new-client/)
 
 
 
@@ -65,4 +65,5 @@ DELETE use the same Graphql controller.
 
   Entity Relationship Diagram:
 
-  ![ERD](./erdtttd.jpg)
+[Actual] (https://imgur.com/kXsgT68)
+[Stretch] (https://imgur.com/BpucYV1)
