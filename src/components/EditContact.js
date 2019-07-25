@@ -32,8 +32,8 @@ class EditContact extends Component {
           variables={ { id, userId } }
         >
           {({ loading, error, data }) => {
-            if (loading) return <div>Fetching</div>
-            if (error) return <div>Error!!</div>
+            if (loading) return <p>Fetching</p>
+            if (error) return <p>Error loading previous data</p>
             const singleContact = data.contact
             return (
               <div>

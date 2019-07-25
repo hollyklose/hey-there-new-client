@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Link } from 'react-router-dom'
 import moment from 'moment'
 import Layout from './Layout'
 import Form from 'react-bootstrap/Form'
@@ -145,6 +145,9 @@ class CreateContact extends Component {
             }}
           >Submit</Button>}
         </Mutation>
+        <Link to='/contact-list'>
+          <Button type="submit" variant="danger">Cancel</Button>
+        </Link>
       </Layout>
     )
   }

@@ -1,8 +1,9 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
 import { Link, withRouter } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
+import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import moment from 'moment'
 
 const DELETE_CONTACT_MUTATION = gql`
@@ -42,22 +43,25 @@ class Contact extends Component {
     }
   }
   render () {
-    const { name, howMet, frequency, priority, lastContacted } = this.props.contact
+    const { name, howMet, lastContacted } = this.props.contact
     const id = parseInt(this.props.contact.id)
     const userId = parseInt(this.props.user.id)
     const lastContactedToday = moment()
     const { history, alert } = this.props
+    let daysSinceLastContact = Math.floor((lastContactedToday - moment(lastContacted)) / 86400000)
+    if (daysSinceLastContact === 0) {
+      daysSinceLastContact = 1
+    }
     return (
-      <div>
-        <div>
-          <p>{name}</p>
-          <p>{howMet}</p>
-          <p>{frequency}</p>
-          <p>{priority}</p>
-          <p>{lastContacted}</p>
-          <p>{this.props.contact.user.email}</p>
+      <Fragment>
+        <tr>
+          <td>{name}</td>
+          <td>{howMet}</td>
+          <td>{daysSinceLastContact} days</td>
+        </tr>
+        <ButtonGroup aria-label="Contact List" size="sm" style={{ marginBottom: '1rem' }}>
           <Link to={`/edit-contact/${id}`}>
-            <Button variant="info">Edit Contact</Button>
+            <Button variant="info">Edit</Button>
           </Link>
           <Mutation
             mutation={DELETE_CONTACT_MUTATION}
@@ -98,11 +102,10 @@ class Contact extends Component {
                     this.props.alert('There was a problem updating.', 'danger')
                   })
               }}
-            >Contacted!</Button>}
+            >✔</Button>}
           </Mutation>
-
-        </div>
-      </div>
+        </ButtonGroup>
+      </Fragment>
     )
   }
 }

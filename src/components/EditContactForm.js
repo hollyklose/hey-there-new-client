@@ -47,16 +47,6 @@ handleChange = event => {
     newField = {
       'frequency': parseInt(event.target.value)
     }
-    // if (newField.frequency > 730) {
-    //   this.setState({ validationError: true, frequency: 1 })
-    //   console.log('freq', this.state.frequency)
-    // } else if (newField.frequency < 1) {
-    //   this.setState({ validationError: true, frequency: 1 })
-    // } else if (newField.frequency === '') {
-    //   newField = {
-    //     'frequency': this.props.contact.frequency
-    //   }
-    // }
   }
   if (newField.priority) {
     newField = {
@@ -155,7 +145,7 @@ render () {
         >Edit</Button>}
       </Mutation>
       <Link to='/contact-list'>
-        <button>Cancel</button>
+        <Button type="submit" variant="danger">Cancel</Button>
       </Link>
     </Fragment>
   )
