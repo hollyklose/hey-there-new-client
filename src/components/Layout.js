@@ -7,7 +7,6 @@ const Layout = props => {
   return (<Row>
     <Col className="mx-auto mt-4" xs={xs} sm={sm} md={md} lg={lg}>
       {props.children}
-      <br /><br />
     </Col>
   </Row>
   )
