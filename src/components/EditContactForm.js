@@ -56,8 +56,6 @@ handleChange = event => {
   const updatedContact = Object.assign(this.state.contact, newField)
   this.setState({ contact: updatedContact })
 }
-// { this.state.validationError ? <h4>Please fill out all fields. Frequency of days must be between 1 and 730.</h4>
-//   : '' }
 render () {
   const { name, howMet, frequency, priority, lastContacted } = this.state.contact
   const id = parseInt(this.state.contact.id)

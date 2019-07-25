@@ -29,7 +29,6 @@ class SignIn extends Component {
       .then(
         res => {
           setUser(res.data.user)
-          console.log(res.data.user)
           localStorage.setItem('auth-token', res.data.user.token)
         }
       )

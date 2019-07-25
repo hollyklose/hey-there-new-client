@@ -19,7 +19,6 @@ const httpLink = createHttpLink({
 
 const authLink = setContext((_, { headers }) => {
   const token = localStorage.getItem(AUTH_TOKEN)
-  console.log('token', token)
   return {
     headers: {
       ...headers,
@@ -28,21 +27,10 @@ const authLink = setContext((_, { headers }) => {
   }
 })
 
-// 3
-// const appLink = AUTH_TOKEN => {
-//   if (AUTH_TOKEN) {
-//     console.log('here', authLink.concat(httpLink))
-//     return authLink.concat(httpLink)
-//   } else {
-//     return httpLink
-//   }
-// }
-
 const client = new ApolloClient({
   link: authLink.concat(httpLink),
   cache: new InMemoryCache()
 })
-console.log('link', client.link)
 // 4
 ReactDOM.render(
   <HashRouter>
@@ -52,12 +40,3 @@ ReactDOM.render(
   </HashRouter>,
   document.getElementById('root')
 )
-
-//
-// const appJsx = (
-//   <HashRouter>
-//     <App />
-//   </HashRouter>
-// )
-//
-// ReactDOM.render(appJsx, document.getElementById('root'))

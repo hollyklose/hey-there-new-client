@@ -20,12 +20,6 @@ const unauthenticatedOptions = (
   </React.Fragment>
 )
 
-// const alwaysOptions = (
-//   <React.Fragment>
-//     <Link to="/">Home</Link>
-//   </React.Fragment>
-// )
-
 const Header = ({ user }) => (
   <header className="main-header">
     <h1>Hey There</h1>
