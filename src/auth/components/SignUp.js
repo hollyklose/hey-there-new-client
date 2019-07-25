@@ -3,6 +3,8 @@ import { withRouter } from 'react-router-dom'
 
 import { signUp, signIn } from '../api'
 import messages from '../messages'
+import Form from 'react-bootstrap/Form'
+import Button from 'react-bootstrap/Button'
 
 class SignUp extends Component {
   constructor () {
@@ -44,38 +46,76 @@ class SignUp extends Component {
     const { email, password, passwordConfirmation } = this.state
 
     return (
-      <form className='auth-form' onSubmit={this.onSignUp}>
+      <Form onSubmit={this.onSignUp}>
         <h3>Sign Up</h3>
+        <Form.Group controlId="formEmail">
+          <Form.Label>Email</Form.Label>
+          <Form.Control
+            required
+            name="email"
+            value={email}
+            type="email"
+            placeholder="Email"
+            onChange={this.handleChange}
+          />
+        </Form.Group>
+        <Form.Group controlId="formPassword">
+          <Form.Label>Password</Form.Label>
+          <Form.Control
+            required
+            name="password"
+            value={password}
+            type="password"
+            placeholder="Password"
+            onChange={this.handleChange}
+          />
+        </Form.Group>
+        <Form.Group controlId="formPasswordConfirmation">
+          <Form.Label>Password Confirmation</Form.Label>
+          <Form.Control
+            required
+            name="passwordConfirmation"
+            value={passwordConfirmation}
+            type="password"
+            placeholder="Confirm Password"
+            onChange={this.handleChange}
+          />
+        </Form.Group>
+        <Button type="submit" variant="info">Sign up</Button>
+      </Form>
 
-        <label htmlFor="email">Email</label>
-        <input
-          required
-          name="email"
-          value={email}
-          type="email"
-          placeholder="Email"
-          onChange={this.handleChange}
-        />
-        <label htmlFor="password">Password</label>
-        <input
-          required
-          name="password"
-          value={password}
-          type="password"
-          placeholder="Password"
-          onChange={this.handleChange}
-        />
-        <label htmlFor="passwordConfirmation">Confirm Password</label>
-        <input
-          required
-          name="passwordConfirmation"
-          value={passwordConfirmation}
-          type="password"
-          placeholder="Confirm Password"
-          onChange={this.handleChange}
-        />
-        <button type="submit">Sign Up</button>
-      </form>
+    // <form className='auth-form' onSubmit={this.onSignUp}>
+    //
+    //
+    //   <label htmlFor="email">Email</label>
+    //   <input
+    //     required
+    //     name="email"
+    //     value={email}
+    //     type="email"
+    //     placeholder="Email"
+    //     onChange={this.handleChange}
+    //   />
+    // <label htmlFor="password">Password</label>
+    // <input
+    //   required
+    //   name="password"
+    //   value={password}
+    //   type="password"
+    //   placeholder="Password"
+    //   onChange={this.handleChange}
+    // />
+    //   <label htmlFor="passwordConfirmation">Confirm Password</label>
+    //   <input
+    //     required
+    //     name="passwordConfirmation"
+    //     value={passwordConfirmation}
+    //     type="password"
+    //     placeholder="Confirm Password"
+    //     onChange={this.handleChange}
+    //   />
+    //   <button type="submit">Sign Up</button>
+    // </form>
     )
   }
 }

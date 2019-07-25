@@ -4,6 +4,7 @@ import { Route, withRouter } from 'react-router-dom'
 import ContactList from './components/ContactList'
 import CreateContact from './components/CreateContact'
 import EditContact from './components/EditContact'
+import Home from './components/Home'
 
 import AuthenticatedRoute from './auth/components/AuthenticatedRoute'
 import Header from './header/Header'
@@ -67,8 +68,8 @@ class App extends Component {
           <AuthenticatedRoute user={user} exact path='/contact-list' render={() => (
             <ContactList alert={this.alert} user={user} history= {this.props.history} />
           )} />
-          <AuthenticatedRoute user={user} exact path='/' render={() => (
-            <h4>Welcome</h4>
+          <Route user={user} exact path='/' render={() => (
+            <Home alert={this.alert} user={user} history= {this.props.history} />
           )} />
         </main>
       </React.Fragment>

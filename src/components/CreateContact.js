@@ -2,6 +2,10 @@ import React, { Component } from 'react'
 import { Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
 import { withRouter } from 'react-router-dom'
+import moment from 'moment'
+import Layout from './Layout'
+import Form from 'react-bootstrap/Form'
+import Button from 'react-bootstrap/Button'
 
 const CONTACT_MUTATION = gql`
   mutation CreateContact($name: String!, $howMet: String!, $frequency: Int!, $priority: Int!, $lastContacted: DateTime!, $userId: Int!) {
@@ -30,7 +34,7 @@ class CreateContact extends Component {
         howMet: '',
         frequency: 1,
         priority: 1,
-        lastContacted: new Date()
+        lastContacted: moment()
       },
       createdContactId: 0
     }
@@ -52,13 +56,6 @@ class CreateContact extends Component {
     }
     const updatedContact = Object.assign(this.state.contact, newField)
     this.setState({ contact: updatedContact })
-
-    // this.setState({
-    //   contact: {
-    //     ...this.state.contact,
-    //     [event.target.name]: event.target.value
-    //   }
-    // })
   }
 
   render () {
@@ -66,84 +63,89 @@ class CreateContact extends Component {
     const userId = this.props.user.id
     const { history } = this.props
     return (
-      <div>
-        <div className="flex flex-column mt3">
-          <input
-            className="mb2"
-            value={name}
-            onChange={this.handleChange}
-            type="text"
-            placeholder="Contact name"
-            required
-            name="name"
-          />
-          <input
-            className="mb2"
-            value={howMet}
-            onChange={this.handleChange}
-            type="text"
-            placeholder="How you met this person"
-            required
-            name="howMet"
-          />
-          <input
-            className="mb2"
-            value={frequency}
-            onChange={this.handleChange}
-            type="number"
-            min="1"
-            max="730"
-            placeholder="30"
-            required
-            name="frequency"
-          />
-          <input
-            className="mb2"
-            value={priority}
-            onChange={this.handleChange}
-            type="range"
-            min="1"
-            max="100"
-            placeholder="50"
-            required
-            name="priority"
-          />
-        </div>
+      <Layout>
+        <Form>
+          <Form.Group controlId="formContactName">
+            <Form.Label>Contact Name</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Contact name"
+              required
+              name="name"
+              value={name}
+              onChange={this.handleChange}
+            />
+          </Form.Group>
+          <Form.Group controlId="formFrequencyOfContact">
+            <Form.Label>Frequency of Contact</Form.Label>
+            <Form.Text className="text-muted">
+              How often do you wish to contact them (in days)?
+            </Form.Text>
+            <Form.Control
+              value={frequency}
+              onChange={this.handleChange}
+              type="number"
+              min="1"
+              max="730"
+              placeholder="30"
+              required
+              name="frequency"
+            />
+          </Form.Group>
+          <Form.Group controlId="formHowMet">
+            <Form.Label>How you Met</Form.Label>
+            <Form.Text className="text-muted">
+              How did you meet, or how do you know, this person?
+            </Form.Text>
+            <Form.Control
+              value={howMet}
+              onChange={this.handleChange}
+              type="text"
+              placeholder="How you met"
+              required
+              name="howMet"
+            />
+          </Form.Group>
+          <Form.Group controlId="formPriority">
+            <Form.Label>Contact Priority</Form.Label>
+            <Form.Text className="text-muted">
+              How high of a priority is contacting this person?
+            </Form.Text>
+            <Form.Control
+              value={priority}
+              onChange={this.handleChange}
+              type="range"
+              min="1"
+              max="100"
+              placeholder="50"
+              required
+              name="priority"
+            />
+          </Form.Group>
+        </Form>
         <Mutation
           mutation={CONTACT_MUTATION}
           variables={{ name, howMet, frequency, priority, lastContacted, userId }}
-          // update={(store, { data: { CONTACT_MUTATION } }) => {
-          //   // Read the data from our cache for this query.
-          //   const data = store.readQuery({ query: CONTACTLIST_QUERY })
-          //   // Add our comment from the mutation to the end.
-          //   data.contacts.unshift(CONTACT_MUTATION)
-          //   // Write our data back to the cache.
-          //   store.writeQuery({ query: CONTACTLIST_QUERY, data })
-          // }}
-          // update={(store, { data: { createContact } }) => {
-          //   const data = store.readQuery({ query: CONTACTLIST_QUERY })
-          //   data.contacts.unshift(createContact)
-          //   console.log(data.contacts)
-          //   store.writeQuery({
-          //     query: CONTACTLIST_QUERY,
-          //     data
-          //   })
-          // }}
-
-          // NEEDTO SEND CONTACT STATE TO CONTACT.JS
           contact={this.state.contact}
           onCompleted={
             (data) => {
-            // this.setState({ createdContactId: data.createContact.id })
-              // history.push(`/contacts/${data.createContact.id}`)
               history.push('/contact-list')
               this.props.alert(`${this.state.contact.name} has been added!`, 'success')
-              // }
             }}
         >
-          {CreateContact => <button onClick={CreateContact}>Submit</button>}
+          {CreateContact => <Button type="submit" variant="info"
+            onClick={() => {
+              CreateContact({
+                variables: { name, howMet, frequency, priority, lastContacted, userId }
+              }).then((data) => {
+              })
+                .catch(() => {
+                  this.props.alert('There was a problem adding your contact. Please fill out all fields and make sure frequency is between 1 and 730.', 'danger')
+                })
+            }}
+          >Submit</Button>}
         </Mutation>
-      </div>
+      </Layout>
     )
   }
 }
