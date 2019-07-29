@@ -61,7 +61,7 @@ class Contact extends Component {
         </tr>
         <ButtonGroup aria-label="Contact List" size="sm" style={{ marginBottom: '1rem' }}>
           <Link to={`/edit-contact/${id}`}>
-            <Button variant="info">Edit</Button>
+            <Button variant="info" title="Edit contact info, length of contact time or priority">Edit</Button>
           </Link>
           <Mutation
             mutation={DELETE_CONTACT_MUTATION}
@@ -72,7 +72,7 @@ class Contact extends Component {
             }
             }
           >
-            {DeleteContact => <Button type="submit" variant="danger"
+            {DeleteContact => <Button type="submit" variant="danger" title="Delete this contact"
               onClick={() => {
                 DeleteContact({
                   variables: { id, userId }
@@ -92,7 +92,7 @@ class Contact extends Component {
               alert(`${name} has been contacted!`, 'success')
             }}
           >
-            {UpdateLastContacted => <Button type="submit" variant="info"
+            {UpdateLastContacted => <Button type="submit" variant="info" title="Mark contact as contacted!"
               onClick={() => {
                 UpdateLastContacted({
                   variables: { id, userId, lastContactedToday }
@@ -102,7 +102,7 @@ class Contact extends Component {
                     this.props.alert('There was a problem updating.', 'danger')
                   })
               }}
-            >✔</Button>}
+            >Contacted✔</Button>}
           </Mutation>
         </ButtonGroup>
       </Fragment>

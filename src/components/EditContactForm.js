@@ -130,7 +130,7 @@ render () {
             this.props.alert(`${this.state.contact.name} has been edited!`, 'success')
           }}
       >
-        {EditContactForm => <Button type="submit" variant="info"
+        {EditContactForm => <Button type="submit" variant="info" className="button"
           onClick={() => {
             EditContactForm({
               variables: { userId, id, name, howMet, frequency, priority, lastContacted }
@@ -140,7 +140,7 @@ render () {
                 this.props.alert('There was a problem editing your contact. Please fill out all fields and make sure frequency is between 1 and 730.', 'danger')
               })
           }}
-        >Edit</Button>}
+        >Submit</Button>}
       </Mutation>
       <Link to='/contact-list'>
         <Button type="submit" variant="danger">Cancel</Button>

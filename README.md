@@ -1,5 +1,9 @@
 # Hey There: Contact Management
 
+### Screenshot of application
+
+![ERD](./hey-there-screenshot.png)
+
 ### Application Description
 This is the front end of the Hey There application which is designed to allow the user to manage their contacts, and specifically to use the app's proprietary sorted list to easily see at a glance which contacts are highest priority and/or most overdue to be contacted. This could be useful for business networking, keeping track of sales leads, or managing contacts in a job search. The hiring manager at your job of choice should probably be contacted with higher priority than a casual contact!
 
@@ -46,15 +50,15 @@ npm install add apollo-client apollo-cache-inmemory apollo-link-http apollo-link
 
   [Front and Back End deployed sites]
 
-  [Back end] (https://murmuring-dawn-91418.herokuapp.com/)
+  [Back end](https://murmuring-dawn-91418.herokuapp.com/)
 
-  [Front end] (https://hollyklose.github.io/hey-there-new-client/)
+  [Front end](https://hollyklose.github.io/hey-there-new-client/)
 
 
 
-  [Front End Repository] (https://hollyklose.github.io/hey-there-new-client/)
+  [Front End Repository](https://github.com/hollyklose/hey-there-new-client)
 
-  [Back End Repository] (https://github.com/hollyklose/Hey-There-Rails-API)
+  [Back End Repository](https://github.com/hollyklose/Hey-There-Rails-API)
 
   ### Wireframe
 
@@ -62,8 +66,9 @@ npm install add apollo-client apollo-cache-inmemory apollo-link-http apollo-link
 
   ### Entity Relationship Diagram:
 
-[Actual] (https://imgur.com/kXsgT68)
-[Stretch] (https://imgur.com/BpucYV1)
+[Actual](https://imgur.com/kXsgT68)
+
+[Stretch](https://imgur.com/BpucYV1)
 
 ### User stories
 
@@ -81,9 +86,6 @@ any given contact because that can change over time.
 6. I want to be able to quickly cross a contact off my list (or move them down the list
 in the priority stack) once I've contacted them.
 
-### Screenshot of application
-
-![ERD](./hey-there-screenshot.png)
 
 ### Planning, Process and Problem-solving strategy
 

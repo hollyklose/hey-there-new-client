@@ -37,7 +37,7 @@ class EditContact extends Component {
             const singleContact = data.contact
             return (
               <div>
-                <h2>{singleContact.howMet}</h2>
+                <h2>Edit Contact</h2>
                 <EditContactForm
                   key={singleContact.id}
                   contact={singleContact}

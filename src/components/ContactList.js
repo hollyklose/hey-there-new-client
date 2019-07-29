@@ -5,6 +5,7 @@ import gql from 'graphql-tag'
 import calculateUrgency from '../logic/sorting.js'
 import Layout from './Layout'
 import Table from 'react-bootstrap/Table'
+import Jumbotron from 'react-bootstrap/Jumbotron'
 
 export const CONTACTLIST_QUERY = gql`
 query contactList($userId: Int!) {
@@ -53,24 +54,26 @@ class ContactList extends Component {
             }
             contactsToRender = calculateUrgency(contactsToRender)
             return (
-              <Table striped bordered hover>
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>How You Met</th>
-                    <th>Days Since Last Contact</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {contactsToRender.map(contact => <Contact
-                    key={contact.id}
-                    contact={contact}
-                    user={this.props.user}
-                    history= {this.props.history}
-                    alert={this.props.alert}
-                  />)}
-                </tbody>
-              </Table>
+              <Jumbotron fluid>
+                <Table striped bordered hover>
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>How You Met</th>
+                      <th>Days Since Last Contact</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {contactsToRender.map(contact => <Contact
+                      key={contact.id}
+                      contact={contact}
+                      user={this.props.user}
+                      history= {this.props.history}
+                      alert={this.props.alert}
+                    />)}
+                  </tbody>
+                </Table>
+              </Jumbotron>
             )
           }}
         </Query>

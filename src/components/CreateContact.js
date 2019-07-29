@@ -133,7 +133,7 @@ class CreateContact extends Component {
               this.props.alert(`${this.state.contact.name} has been added!`, 'success')
             }}
         >
-          {CreateContact => <Button type="submit" variant="info"
+          {CreateContact => <Button type="submit" variant="info" className="button"
             onClick={() => {
               CreateContact({
                 variables: { name, howMet, frequency, priority, lastContacted, userId }
