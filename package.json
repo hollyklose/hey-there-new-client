@@ -4,6 +4,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@apollo/react-hooks": "^3.0.0",
     "apollo-boost": "^0.4.3",
     "apollo-link-context": "^1.0.18",
     "autoprefixer": "7.1.6",

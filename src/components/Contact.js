@@ -1,113 +1,79 @@
-import React, { Component, Fragment } from 'react'
-import { Mutation } from 'react-apollo'
-import gql from 'graphql-tag'
+import React, { Fragment } from 'react'
+import { useMutation } from '@apollo/react-hooks'
+import { DELETE_CONTACT_MUTATION, UPDATE_LAST_CONTACTED_MUTATION } from '../mutations'
 import { Link, withRouter } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import moment from 'moment'
 
-const DELETE_CONTACT_MUTATION = gql`
-  mutation DeleteContact($id: Int!, $userId: Int!) {
-    deleteContact(id: $id, userId: $userId) {
-      userId
-      id
-    }
+const Contact = props => {
+  const { name, howMet, lastContacted } = props.contact
+  const id = parseInt(props.contact.id)
+  const userId = parseInt(props.user.id)
+  const lastContactedToday = moment()
+  const { alert } = props
+  let daysSinceLastContact = Math.floor((lastContactedToday - moment(lastContacted)) / 86400000)
+  if (daysSinceLastContact === 0) {
+    daysSinceLastContact = 1
   }
-`
-
-const UPDATE_LAST_CONTACTED_MUTATION = gql`
-  mutation UpdateLastContacted($id: Int!, $userId: Int!, $lastContactedToday: DateTime!) {
-    updateLastContacted(id: $id, userId: $userId, lastContactedToday: $lastContactedToday) {
-      name
-      howMet
-      frequency
-      priority
-      lastContacted
-      id
-      user {
-        id
-        email
-      }
+  const [deleteContact] = useMutation(
+    DELETE_CONTACT_MUTATION,
+    { variables: { id, userId }
     }
-  }
-`
-
-class Contact extends Component {
-  constructor (props) {
-    super(props)
-
-    this.state = {
-      contact: null,
-      deleted: false,
-      dateUpdated: false
+  )
+  const [updateLastContacted] = useMutation(
+    UPDATE_LAST_CONTACTED_MUTATION,
+    { variables: { id, userId, lastContactedToday }
     }
-  }
-  render () {
-    const { name, howMet, lastContacted } = this.props.contact
-    const id = parseInt(this.props.contact.id)
-    const userId = parseInt(this.props.user.id)
-    const lastContactedToday = moment()
-    const { history, alert } = this.props
-    let daysSinceLastContact = Math.floor((lastContactedToday - moment(lastContacted)) / 86400000)
-    if (daysSinceLastContact === 0) {
-      daysSinceLastContact = 1
-    }
-    return (
-      <Fragment>
-        <tr>
-          <td>{name}</td>
-          <td>{howMet}</td>
-          <td>{daysSinceLastContact} days</td>
-        </tr>
-        <ButtonGroup aria-label="Contact List" size="sm" style={{ marginBottom: '1rem' }}>
-          <Link to={`/edit-contact/${id}`}>
-            <Button variant="info" title="Edit contact info, length of contact time or priority">Edit</Button>
-          </Link>
-          <Mutation
-            mutation={DELETE_CONTACT_MUTATION}
-            variables={{ id, userId }}
-            onCompleted={() => {
-              history.push('/')
-              alert(`${name} has been deleted!`, 'success')
-            }
-            }
-          >
-            {DeleteContact => <Button type="submit" variant="danger" title="Delete this contact"
-              onClick={() => {
-                DeleteContact({
-                  variables: { id, userId }
-                }).then((data) => {
-                })
-                  .catch(() => {
-                    this.props.alert('There was a problem deleting your contact.', 'danger')
-                  })
-              }}
-            >Delete</Button>}
-          </Mutation>
-          <Mutation
-            mutation={UPDATE_LAST_CONTACTED_MUTATION}
-            variables={{ id, userId, lastContactedToday }}
-            onCompleted={() => {
-              history.push('/')
-              alert(`${name} has been contacted!`, 'success')
-            }}
-          >
-            {UpdateLastContacted => <Button type="submit" variant="info" title="Mark contact as contacted!"
-              onClick={() => {
-                UpdateLastContacted({
-                  variables: { id, userId, lastContactedToday }
-                }).then((data) => {
-                })
-                  .catch(() => {
-                    this.props.alert('There was a problem updating.', 'danger')
-                  })
-              }}
-            >Contacted✔</Button>}
-          </Mutation>
-        </ButtonGroup>
-      </Fragment>
-    )
-  }
+  )
+  return (
+    <Fragment>
+      <tr>
+        <td>{name}</td>
+        <td>{howMet}</td>
+        <td>{daysSinceLastContact} days</td>
+      </tr>
+      <ButtonGroup aria-label="Contact List" size="sm" style={{ marginBottom: '1rem' }}>
+        <Link to={`/edit-contact/${id}`}>
+          <Button variant="info" title="Edit contact info, length of contact time or priority">Edit</Button>
+        </Link>
+        <Button
+          type="submit"
+          variant="danger"
+          title="Delete this contact"
+          onClick={() => {
+            deleteContact()
+              .then(() => {
+                alert(`${name} has been deleted!`, 'success')
+                props.refetch()
+              })
+              .catch((error) =>
+                alert(`There is a problem deleting your contact. Please try again. ERROR: ${error.message}`)
+              )
+          }}
+        >
+          Delete
+        </Button>
+        <Button
+          type="submit"
+          variant="info"
+          title="Mark contact as contacted!"
+          onClick={() => {
+            updateLastContacted()
+              .then(() => {
+                alert(`${name} has been marked as contacted!`, 'success')
+                props.refetch()
+              })
+              .catch((error) =>
+                alert(`There is a problem updating your contact. Please try again. ERROR: ${error.message}`)
+              )
+          }}
+        >
+          Contacted✔
+        </Button>
+      </ButtonGroup>
+    </Fragment>
+  )
 }
 
 export default withRouter(Contact)

@@ -1,65 +1,39 @@
-import React, { Component, Fragment } from 'react'
+import React, { Fragment, useState, useEffect } from 'react'
 import { Link, withRouter } from 'react-router-dom'
-import { Mutation } from 'react-apollo'
-import gql from 'graphql-tag'
+import { useMutation } from '@apollo/react-hooks'
+import { UPDATE_CONTACT_MUTATION } from '../mutations'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
-const UPDATE_CONTACT_MUTATION = gql`
-  mutation UpdateContact($id: Int!, $name: String!, $howMet: String!, $frequency: Int!, $priority: Int!, $lastContacted: DateTime!, $userId: Int!) {
-    updateContact(id: $id, name: $name, howMet: $howMet, frequency: $frequency, priority: $priority, lastContacted: $lastContacted, userId: $userId) {
-      name
-      howMet
-      frequency
-      priority
-      lastContacted
-      id
-      userId
-      user {
-        id
-        email
-      }
+const EditContactForm = props => {
+  const [contact, setContact] = useState(
+    {
+      name: '',
+      howMet: '',
+      frequency: 1,
+      priority: 0,
+      validationError: false
     }
-  }
-`
-class EditContactForm extends Component {
-  constructor (props) {
-    super(props)
-
-    this.state = {
-      contact: {
-        name: '',
-        howMet: '',
-        frequency: 1,
-        priority: 0,
-        validationError: false
-      }
+  )
+  // componentDidMount () {
+  useEffect(() => setContact(props.contact), [])
+  const handleChange = event => {
+    event.persist()
+    let newValue = event.target.value
+    if (event.target.name === 'frequency' || event.target.name === 'priority') {
+      newValue = parseInt(event.target.value)
     }
+    setContact(contact => ({ ...contact, [event.target.name]: newValue }))
   }
-  componentDidMount () {
-    this.setState({ contact: this.props.contact })
-  }
-handleChange = event => {
-  let newField = {
-    [event.target.name]: event.target.value
-  }
-  if (newField.frequency) {
-    newField = {
-      'frequency': parseInt(event.target.value)
+  const { name, howMet, frequency, priority, lastContacted } = contact
+  const id = parseInt(contact.id)
+  const userId = props.user.id
+  const { history, alert } = props
+  const [UpdateContact] = useMutation(
+    UPDATE_CONTACT_MUTATION,
+    { variables: { userId, id, name, howMet, frequency, priority, lastContacted }
     }
-  }
-  if (newField.priority) {
-    newField = {
-      'priority': parseInt(event.target.value)
-    }
-  }
-  const updatedContact = Object.assign(this.state.contact, newField)
-  this.setState({ contact: updatedContact })
-}
-render () {
-  const { name, howMet, frequency, priority, lastContacted } = this.state.contact
-  const id = parseInt(this.state.contact.id)
-  const userId = this.props.user.id
+  )
   return (
     <Fragment>
       <Form>
@@ -71,7 +45,7 @@ render () {
             required
             name="name"
             value={name}
-            onChange={this.handleChange}
+            onChange={handleChange}
           />
         </Form.Group>
         <Form.Group controlId="formFrequencyOfContact">
@@ -81,7 +55,7 @@ render () {
           </Form.Text>
           <Form.Control
             value={frequency}
-            onChange={this.handleChange}
+            onChange={handleChange}
             type="number"
             min="1"
             max="730"
@@ -97,7 +71,7 @@ render () {
           </Form.Text>
           <Form.Control
             value={howMet}
-            onChange={this.handleChange}
+            onChange={handleChange}
             type="text"
             placeholder="How you met"
             required
@@ -111,7 +85,7 @@ render () {
           </Form.Text>
           <Form.Control
             value={priority}
-            onChange={this.handleChange}
+            onChange={handleChange}
             type="range"
             min="1"
             max="100"
@@ -121,33 +95,28 @@ render () {
           />
         </Form.Group>
       </Form>
-      <Mutation
-        mutation={UPDATE_CONTACT_MUTATION}
-        variables={{ userId, id, name, howMet, frequency, priority, lastContacted }}
-        onCompleted={
-          (data) => {
-            this.props.history.push('/contact-list')
-            this.props.alert(`${this.state.contact.name} has been edited!`, 'success')
-          }}
-      >
-        {EditContactForm => <Button type="submit" variant="info" className="button"
-          onClick={() => {
-            EditContactForm({
-              variables: { userId, id, name, howMet, frequency, priority, lastContacted }
-            }).then((data) => {
+      <Button
+        type="submit"
+        variant="info"
+        className="button"
+        onClick={() => {
+          UpdateContact()
+            .then(() => {
+              history.push('/contact-list')
+              alert(`${contact.name} has been edited!`, 'success')
             })
-              .catch(() => {
-                this.props.alert('There was a problem editing your contact. Please fill out all fields and make sure frequency is between 1 and 730.', 'danger')
-              })
-          }}
-        >Submit</Button>}
-      </Mutation>
+            .catch((error) =>
+              alert(`There was a problem editing your contact. Please fill out all fields and make sure frequency is between 1 and 730 days. ERROR: ${error.message}`, 'danger')
+            )
+        }}
+      >
+        Submit
+      </Button>
       <Link to='/contact-list'>
         <Button type="submit" variant="danger">Cancel</Button>
       </Link>
     </Fragment>
   )
-}
 }
 
 export default withRouter(EditContactForm)
