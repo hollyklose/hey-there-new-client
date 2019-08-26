@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useMutation } from '@apollo/react-hooks'
-import CREATE_CONTACT_MUTATION from '../mutations'
+import CREATE_CONTACT_MUTATION from '../shared/mutations'
 import { withRouter, Link } from 'react-router-dom'
 import moment from 'moment'
 import Layout from './Layout'
@@ -102,10 +102,18 @@ const CreateContact = props => {
           CreateContact()
             .then(() => {
               history.push('/contact-list')
-              alert(`${name} has been added!`, 'success')
+              alert({
+                heading: 'Contact Added',
+                message: `${name} has been added!`,
+                variant: 'success'
+              })
             })
             .catch((error) =>
-              alert(`There was a problem adding your contact. Please fill out all fields and make sure frequency is between 1 and 730 days. ERROR: ${error.message}`, 'danger')
+              alert({
+                heading: 'Contact Not Added',
+                message: `There was a problem adding your contact. Please fill out all fields and make sure frequency is between 1 and 730 days. ERROR: ${error.message}`,
+                variant: 'danger'
+              })
             )
         }}
       >

@@ -3,7 +3,7 @@ import { useQuery } from '@apollo/react-hooks'
 import { withRouter } from 'react-router-dom'
 import EditContactForm from './EditContactForm'
 import Layout from './Layout'
-import { SINGLE_CONTACT_QUERY } from '../queries'
+import { SINGLE_CONTACT_QUERY } from '../shared/queries'
 
 const EditContact = props => {
   const userId = props.user.id

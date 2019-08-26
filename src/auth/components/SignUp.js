@@ -32,12 +32,20 @@ class SignUp extends Component {
         setUser(res.data.user)
         localStorage.setItem('auth-token', res.data.user.token)
       })
-      .then(() => alert(messages.signUpSuccess, 'success'))
-      .then(() => history.push('/'))
+      .then(alert({
+        heading: 'Sign Up Success',
+        message: messages.signUpSuccess,
+        variant: 'success'
+      }))
+      .then(() => history.push('/contact-list'))
       .catch(error => {
         console.error(error)
         this.setState({ email: '', password: '', passwordConfirmation: '' })
-        alert(messages.signUpFailure, 'danger')
+        alert({
+          heading: 'Sign Up Failed',
+          message: messages.signUpFailure,
+          variant: 'danger'
+        })
       })
   }
 

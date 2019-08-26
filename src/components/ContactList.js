@@ -1,7 +1,7 @@
 import React from 'react'
 import Contact from './Contact'
 import { useQuery } from '@apollo/react-hooks'
-import CONTACTLIST_QUERY from '../queries'
+import CONTACTLIST_QUERY from '../shared/queries'
 import calculateUrgency from '../logic/sorting'
 import Layout from './Layout'
 import Table from 'react-bootstrap/Table'

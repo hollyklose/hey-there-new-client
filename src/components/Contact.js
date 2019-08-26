@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import { useMutation } from '@apollo/react-hooks'
-import { DELETE_CONTACT_MUTATION, UPDATE_LAST_CONTACTED_MUTATION } from '../mutations'
+import { DELETE_CONTACT_MUTATION, UPDATE_LAST_CONTACTED_MUTATION } from '../shared/mutations'
 import { Link, withRouter } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
@@ -44,11 +44,19 @@ const Contact = props => {
           onClick={() => {
             deleteContact()
               .then(() => {
-                alert(`${name} has been deleted!`, 'success')
+                alert({
+                  heading: 'Contact Deleted',
+                  message: `${name} has been deleted!`,
+                  variant: 'success'
+                })
                 props.refetch()
               })
               .catch((error) =>
-                alert(`There is a problem deleting your contact. Please try again. ERROR: ${error.message}`)
+                alert({
+                  heading: 'Contact Not Deleted',
+                  message: `There is a problem deleting your contact. Please try again. ERROR: ${error.message}`,
+                  variant: 'danger'
+                })
               )
           }}
         >
@@ -61,11 +69,19 @@ const Contact = props => {
           onClick={() => {
             updateLastContacted()
               .then(() => {
-                alert(`${name} has been marked as contacted!`, 'success')
+                alert({
+                  heading: 'Contacted!',
+                  message: `${name} has been marked as contacted!`,
+                  variant: 'success'
+                })
                 props.refetch()
               })
               .catch((error) =>
-                alert(`There is a problem updating your contact. Please try again. ERROR: ${error.message}`)
+                alert({
+                  heading: 'Mark Contacted Failed',
+                  message: `There is a problem updating your contact. Please try again. ERROR: ${error.message}`,
+                  variant: 'danger'
+                })
               )
           }}
         >

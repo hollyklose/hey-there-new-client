@@ -32,12 +32,20 @@ class SignIn extends Component {
           localStorage.setItem('auth-token', res.data.user.token)
         }
       )
-      .then(() => alert(messages.signInSuccess, 'success'))
+      .then(alert({
+        heading: 'Sign In Success',
+        message: messages.signInSuccess,
+        variant: 'success'
+      }))
       .then(() => history.push('/contact-list'))
       .catch(error => {
         console.error(error)
         this.setState({ email: '', password: '' })
-        alert(messages.signInFailure, 'danger')
+        alert({
+          heading: 'Sign In Failed',
+          message: messages.signInFailure,
+          variant: 'danger'
+        })
       })
   }
 

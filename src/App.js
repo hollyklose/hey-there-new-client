@@ -13,7 +13,8 @@ import SignIn from './auth/components/SignIn'
 import SignOut from './auth/components/SignOut'
 import ChangePassword from './auth/components/ChangePassword'
 
-import Alert from 'react-bootstrap/Alert'
+// import Alert from 'react-bootstrap/Alert'
+import AutoDismissAlert from './shared/autoDismissAlert/AutoDismissAlert'
 
 class App extends Component {
   constructor () {
@@ -29,8 +30,12 @@ class App extends Component {
 
   clearUser = () => this.setState({ user: null })
 
-  alert = (message, type) => {
-    this.setState({ alerts: [...this.state.alerts, { message, type }] })
+  // alert = (message, type) => {
+  //   this.setState({ alerts: [...this.state.alerts, { message, type }] })
+  // }
+
+  alert = ({ heading, message, variant }) => {
+    this.setState({ alerts: [...this.state.alerts, { heading, message, variant }] })
   }
 
   render () {
@@ -40,11 +45,8 @@ class App extends Component {
       <React.Fragment>
         <Header user={user} />
         {alerts.map((alert, index) => (
-          <Alert key={index} dismissible variant={alert.type}>
-            <Alert.Heading>
-              {alert.message}
-            </Alert.Heading>
-          </Alert>
+          <AutoDismissAlert key={index} dismissible heading={alert.heading} variant={alert.variant} message={alert.message}
+          />
         ))}
         <main className="container">
           <Route path='/sign-up' render={() => (

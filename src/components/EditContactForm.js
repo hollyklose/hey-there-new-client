@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useEffect } from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import { useMutation } from '@apollo/react-hooks'
-import { UPDATE_CONTACT_MUTATION } from '../mutations'
+import { UPDATE_CONTACT_MUTATION } from '../shared/mutations'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
@@ -103,10 +103,18 @@ const EditContactForm = props => {
           UpdateContact()
             .then(() => {
               history.push('/contact-list')
-              alert(`${contact.name} has been edited!`, 'success')
+              alert({
+                heading: 'Contact Edited',
+                message: `${contact.name} has been edited!`,
+                variant: 'success'
+              })
             })
             .catch((error) =>
-              alert(`There was a problem editing your contact. Please fill out all fields and make sure frequency is between 1 and 730 days. ERROR: ${error.message}`, 'danger')
+              alert({
+                heading: 'Contact Not Edited',
+                message: `There was a problem editing your contact. Please fill out all fields and make sure frequency is between 1 and 730 days. ERROR: ${error.message}`,
+                variant: 'danger'
+              })
             )
         }}
       >
