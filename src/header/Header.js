@@ -10,6 +10,7 @@ const authenticatedOptions = (
     <Link to="/sign-out">Sign Out</Link>
     <Link to="/create-contact">Create New Contact</Link>
     <Link to="/contact-list">Contacts List</Link>
+    <Link to="/manage-tags">Manage Tags</Link>
   </React.Fragment>
 )
 

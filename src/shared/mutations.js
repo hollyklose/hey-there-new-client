@@ -32,4 +32,22 @@ export const UPDATE_CONTACT_MUTATION = gql`
   }
 `
 
+export const CREATE_TAG_MUTATION = gql`
+  mutation CreateTag($name: String!, $genre: TypeCategory!, $customTagDescription: String, $userId: Int!) {
+    createTag(name: $name, genre: $genre, customTagDescription: $customTagDescription, userId: $userId) {
+      name
+      genre
+      customTagDescription
+    }
+  }
+`
+
+export const DELETE_TAG_MUTATION = gql`
+  mutation deleteTag($id: Int!, $userId: Int!) {
+    deleteTag(id: $id, userId: $userId) {
+      id
+    }
+  }
+`
+
 export default CREATE_CONTACT_MUTATION
