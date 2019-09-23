@@ -48,4 +48,15 @@ query tags($userId: Int!) {
 }
 `
 
+export const SINGLE_TAG_QUERY = gql`
+query tag($userId: Int!, $id: Int!) {
+  tag(userId: $userId, id: $id) {
+    id
+    name
+    genre
+    customTagDescription
+  }
+}
+`
+
 export default CONTACTLIST_QUERY

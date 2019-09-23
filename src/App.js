@@ -7,6 +7,7 @@ import EditContact from './components/EditContact'
 import Home from './components/Home'
 import Tags from './components/Tags'
 import CreateTag from './components/CreateTag'
+import EditTag from './components/EditTag'
 
 import AuthenticatedRoute from './auth/components/AuthenticatedRoute'
 import Header from './header/Header'
@@ -77,6 +78,9 @@ class App extends Component {
           )} />
           <AuthenticatedRoute user={user} exact path='/manage-tags' render={() => (
             <CreateTag user={user} alert={this.alert} />
+          )} />
+          <AuthenticatedRoute user={user} exact path='/manage-tags/:id' render={() => (
+            <EditTag user={user} alert={this.alert} />
           )} />
           <Route user={user} exact path='/' render={() => (
             <Home alert={this.alert} user={user} history= {this.props.history} />
